@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Layout } from '../layouts'
-import { Row, Col, Avatar, Card } from 'antd'
+import { Row, Col, Avatar, Card, Spin } from 'antd'
 import axios from 'axios'
 
 interface Post {
@@ -28,24 +29,32 @@ const Home = () => {
       <Row justify={'center'}>
         <Col>
           <div style={{ padding: '100px 50px' }}>
-            <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>EIGEN TEST</h1>
+            <NavLink to={'/'} style={{ fontSize: '24px', fontWeight: 'bold' }}>
+              EIGEN TEST
+            </NavLink>
           </div>
         </Col>
       </Row>
       <Row gutter={[16, 24]}>
-        {posts.map((post) => (
-          <Col className='gutter-row' md={6}>
-            <Card cover={<img alt='example' src={post.urlToImage} />}>
-              <Card.Meta
-                avatar={
-                  <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
-                }
-                title={post.title}
-                description={post.description}
-              />
-            </Card>
-          </Col>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post, i) => (
+            <Col className='gutter-row' md={6} key={i}>
+              <NavLink to={`/posts/${i + 1}`}>
+                <Card cover={<img alt='example' src={post.urlToImage} />}>
+                  <Card.Meta
+                    avatar={
+                      <Avatar src='https://api.dicebear.com/7.x/miniavs/svg?seed=8' />
+                    }
+                    title={post.title}
+                    description={post.description}
+                  />
+                </Card>
+              </NavLink>
+            </Col>
+          ))
+        ) : (
+          <Spin style={{ margin: '0 auto' }} />
+        )}
       </Row>
     </Layout>
   )
