@@ -1,10 +1,11 @@
-import "./App.css";
-import { Button } from "antd";
+import { ReactNode } from 'react'
 
-const App = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-);
+interface AppProps {
+  children: ReactNode
+}
 
-export default App;
+const App: React.FC<AppProps> = ({ children }) => (
+  <div className='App'>{children}</div>
+)
+
+export default App
